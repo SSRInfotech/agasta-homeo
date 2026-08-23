@@ -1,0 +1,84 @@
+import type { Metadata } from "next";
+import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { WhatsAppCta } from "@/components/WhatsAppCta";
+import { LeadForm } from "@/components/LeadForm";
+import { deskRule, intro, noHospitalYet, privacyPromise, whatsappTemplates } from "@/content/contact";
+import { site } from "@/content/site";
+
+export const metadata: Metadata = {
+  title: "संपर्क | Contact",
+  description:
+    "अगस्ता होमियो से व्हाट्सएप या फ़ोन पर संपर्क करें। आपात स्थिति में 108 पर कॉल करें।",
+};
+
+export default function ContactPage() {
+  return (
+    <>
+      <Section>
+        <SectionHeading level={1} eyebrow="Contact" hi={intro.title.hi} en={intro.title.en} />
+        <p lang="hi" className="max-w-3xl text-lg text-ink-soft">
+          {intro.lede.hi}
+        </p>
+        <p lang="en" className="mt-3 max-w-3xl text-ink-muted">
+          {intro.lede.en}
+        </p>
+        <WhatsAppCta text={whatsappTemplates.patient} />
+      </Section>
+
+      <Section tone="soft">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <article className="rounded-xl border border-brand-line bg-surface p-6">
+            <h2 lang="hi" className="text-lg font-semibold text-brand-dark">अस्पताल</h2>
+            <p lang="hi" className="mt-3 text-sm text-ink-soft">{noHospitalYet.hi}</p>
+            <p lang="en" className="mt-2 text-sm text-ink-muted">{noHospitalYet.en}</p>
+          </article>
+
+          <article className="rounded-xl border border-brand-line bg-surface p-6">
+            <h2 lang="hi" className="text-lg font-semibold text-brand-dark">व्हाट्सएप डेस्क</h2>
+            <p lang="hi" className="mt-3 text-sm text-ink-soft">{deskRule.hi}</p>
+            <p lang="en" className="mt-2 text-sm text-ink-muted">{deskRule.en}</p>
+          </article>
+
+          <article className="rounded-xl border border-brand-line bg-surface p-6">
+            <h2 lang="hi" className="text-lg font-semibold text-brand-dark">ईमेल</h2>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li>
+                <a href={`mailto:${site.email.care}`} className="text-brand underline underline-offset-4">
+                  {site.email.care}
+                </a>
+                <span className="block text-xs text-ink-muted">मरीज़ और सामान्य पूछताछ</span>
+              </li>
+              <li>
+                <a href={`mailto:${site.email.careers}`} className="text-brand underline underline-offset-4">
+                  {site.email.careers}
+                </a>
+                <span className="block text-xs text-ink-muted">चिकित्सक आवेदन</span>
+              </li>
+              <li>
+                <a href={`mailto:${site.email.grievance}`} className="text-brand underline underline-offset-4">
+                  {site.email.grievance}
+                </a>
+                <span className="block text-xs text-ink-muted">शिकायत अधिकारी / Grievance officer</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <div className="mt-8 rounded-xl border border-line bg-surface p-6">
+          <p lang="hi" className="text-sm text-ink-soft">{privacyPromise.hi}</p>
+          <p lang="en" className="mt-2 text-sm text-ink-muted">{privacyPromise.en}</p>
+        </div>
+      </Section>
+
+      <Section narrow>
+        <SectionHeading
+          eyebrow="Request a callback"
+          hi="अस्पताल खुलने पर नाम लिख दीजिए, हम कॉल करेंगे"
+          en="Leave your details and we will call you when a hospital opens"
+        />
+        <LeadForm source="contact-page" />
+      </Section>
+    </>
+  );
+}
