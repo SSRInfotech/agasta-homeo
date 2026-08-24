@@ -37,11 +37,19 @@ export const site = {
     tel: process.env.NEXT_PUBLIC_PHONE_TEL ?? "TODO_PHONE_TEL",
   },
 
+  /**
+   * One official inbox — info@agastahomeo.in — used for every purpose
+   * below. Kept as separate fields (not a single string) because the
+   * labels are load-bearing: DPDP 2023 requires a findable grievance
+   * contact on /contact and /privacy, and the careers/care split still
+   * documents *why* someone would write in, even though today all three
+   * land in the same inbox.
+   */
   email: {
-    care: "care@agastahomeo.com",
-    careers: "careers@agastahomeo.com",
+    care: "info@agastahomeo.in",
+    careers: "info@agastahomeo.in",
     /** Required once personal data is collected — DPDP 2023. */
-    grievance: "grievance@agastahomeo.com",
+    grievance: "info@agastahomeo.in",
   },
 
   /** Live Google Form URL for doctor applications (never the /edit URL). */

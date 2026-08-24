@@ -2,6 +2,20 @@ import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
+  IconAlertTriangle,
+  IconBookOpen,
+  IconCalendarClock,
+  IconCheckCircle,
+  IconDroplet,
+  IconFingerprint,
+  IconFlask,
+  IconLandmark,
+  IconMapPin,
+  IconScale,
+  IconShieldCheck,
+  IconStethoscope,
+} from "@/components/icons";
+import {
   dualCare,
   firstVisit,
   history,
@@ -13,6 +27,10 @@ import {
   researchTone,
   whd,
 } from "@/content/homoeopathy";
+
+const historyIcons = [<IconBookOpen key="0" />, <IconMapPin key="1" />, <IconFlask key="2" />, <IconLandmark key="3" />];
+const principleIcons = [<IconScale key="0" />, <IconDroplet key="1" />, <IconFingerprint key="2" />];
+const researchIcons = [<IconStethoscope key="0" />, <IconShieldCheck key="1" />, <IconBookOpen key="2" />];
 
 export const metadata: Metadata = {
   title: "होम्योपैथी क्या है | What homoeopathy is",
@@ -39,9 +57,12 @@ export default function HomoeopathyPage() {
           hi="दो सौ साल की पद्धति, एक भारतीय मंत्रालय"
           en="A 200-year-old method, an Indian ministry"
         />
-        <ol className="grid gap-5 md:grid-cols-2">
-          {history.map((item) => (
-            <li key={item.title.en} className="rounded-xl border border-brand-line bg-surface p-6">
+        <ol className="stagger grid gap-5 md:grid-cols-2">
+          {history.map((item, i) => (
+            <li key={item.title.en} className="card-hover rounded-xl border border-brand-line bg-surface p-6">
+              <div className="icon-badge mb-4" aria-hidden>
+                {historyIcons[i]}
+              </div>
               <h3 lang="hi" className="text-lg font-semibold text-brand-dark">
                 {item.title.hi}
               </h3>
@@ -65,9 +86,12 @@ export default function HomoeopathyPage() {
           hi="तीन बुनियादी सिद्धांत"
           en="The three principles"
         />
-        <div className="grid gap-6 lg:grid-cols-3">
-          {principles.map((item) => (
-            <article key={item.n} className="rounded-xl border border-line bg-surface p-6">
+        <div className="stagger grid gap-6 lg:grid-cols-3">
+          {principles.map((item, i) => (
+            <article key={item.n} className="card-hover rounded-xl border border-line bg-surface p-6">
+              <div className="icon-badge mb-4" aria-hidden>
+                {principleIcons[i]}
+              </div>
               <p className="text-2xl font-semibold text-brand-mid">{item.n}</p>
               <h3 lang="hi" className="mt-3 text-lg font-semibold">
                 {item.title.hi}
@@ -92,7 +116,7 @@ export default function HomoeopathyPage() {
           hi="पहली मुलाक़ात कैसी होती है"
           en="What a first visit feels like"
         />
-        <ol className="grid gap-3 md:grid-cols-2">
+        <ol className="stagger grid gap-3 md:grid-cols-2">
           {firstVisit.map((step, index) => (
             <li key={step.en} className="flex gap-4 rounded-lg border border-brand-line bg-surface p-4">
               <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand text-sm font-semibold text-white">
@@ -112,6 +136,9 @@ export default function HomoeopathyPage() {
       </Section>
 
       <Section>
+        <div className="icon-badge mb-5" aria-hidden>
+          <IconFlask />
+        </div>
         <SectionHeading eyebrow="Pharmacy" hi={pharmacy.title.hi} en={pharmacy.title.en} />
         <p lang="hi" className="max-w-3xl text-lg text-ink-soft">
           {pharmacy.body.hi}
@@ -128,9 +155,12 @@ export default function HomoeopathyPage() {
           hi="भारत में क्या शोध हुआ है"
           en="What research in India has looked at"
         />
-        <div className="grid gap-5 lg:grid-cols-3">
-          {research.map((card) => (
+        <div className="stagger grid gap-5 lg:grid-cols-3">
+          {research.map((card, i) => (
             <article key={card.source} className="flex flex-col rounded-xl border border-brand-line bg-surface p-6">
+              <div className="icon-badge mb-4" aria-hidden>
+                {researchIcons[i]}
+              </div>
               <h3 lang="hi" className="text-lg font-semibold text-brand-dark">
                 {card.topic.hi}
               </h3>
@@ -157,8 +187,11 @@ export default function HomoeopathyPage() {
 
       <Section id="dual-care">
         <SectionHeading eyebrow="Dual care" hi={dualCare.title.hi} en={dualCare.title.en} />
-        <p lang="hi" className="mb-8 max-w-3xl text-ink-soft">
+        <p lang="hi" className="mb-2 max-w-3xl text-ink-soft">
           {dualCare.lede.hi}
+        </p>
+        <p lang="en" className="mb-8 max-w-3xl text-sm text-ink-muted">
+          {dualCare.lede.en}
         </p>
 
         {/*
@@ -169,7 +202,8 @@ export default function HomoeopathyPage() {
           {dualCare.rows.map((row) => (
             <li key={row.left.en} className="overflow-hidden rounded-xl border border-line">
               <div className="bg-brand-soft p-4">
-                <p className="mb-1 text-xs font-semibold tracking-wide text-brand uppercase">
+                <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-brand uppercase">
+                  <IconCheckCircle className="h-3.5 w-3.5" aria-hidden />
                   {dualCare.leftHead.en}
                 </p>
                 <span lang="hi" className="block text-ink">
@@ -180,7 +214,8 @@ export default function HomoeopathyPage() {
                 </span>
               </div>
               <div className="border-t border-line bg-alert-soft p-4">
-                <p className="mb-1 text-xs font-semibold tracking-wide text-alert uppercase">
+                <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-alert uppercase">
+                  <IconAlertTriangle className="h-3.5 w-3.5" aria-hidden />
                   {dualCare.rightHead.en}
                 </p>
                 <span lang="hi" className="block font-medium text-alert">
@@ -199,6 +234,9 @@ export default function HomoeopathyPage() {
             <thead>
               <tr className="bg-brand-soft">
                 <th scope="col" className="w-1/2 p-4 align-top">
+                  <span className="mb-2 flex items-center gap-2 text-brand" aria-hidden>
+                    <IconCheckCircle className="h-5 w-5" />
+                  </span>
                   <span lang="hi" className="block font-semibold text-brand-dark">
                     {dualCare.leftHead.hi}
                   </span>
@@ -207,6 +245,9 @@ export default function HomoeopathyPage() {
                   </span>
                 </th>
                 <th scope="col" className="w-1/2 border-l border-line bg-alert-soft p-4 align-top">
+                  <span className="mb-2 flex items-center gap-2 text-alert" aria-hidden>
+                    <IconAlertTriangle className="h-5 w-5" />
+                  </span>
                   <span lang="hi" className="block font-semibold text-alert">
                     {dualCare.rightHead.hi}
                   </span>
@@ -244,11 +285,14 @@ export default function HomoeopathyPage() {
 
       <Section tone="soft">
         <SectionHeading eyebrow="Myths" hi="प्रचलित ग़लतफ़हमियाँ" en="Myths, answered plainly" />
-        <dl className="grid gap-5 md:grid-cols-2">
+        <dl className="stagger grid gap-5 md:grid-cols-2">
           {myths.map((item) => (
-            <div key={item.myth.en} className="rounded-xl border border-brand-line bg-surface p-6">
+            <div key={item.myth.en} className="card-hover rounded-xl border border-brand-line bg-surface p-6">
               <dt lang="hi" className="text-lg font-semibold text-ink">
                 {item.myth.hi}
+              </dt>
+              <dt lang="en" className="text-sm text-ink-muted">
+                {item.myth.en}
               </dt>
               <dd className="mt-3">
                 <span lang="hi" className="block text-ink-soft">
@@ -264,6 +308,9 @@ export default function HomoeopathyPage() {
       </Section>
 
       <Section>
+        <div className="icon-badge mb-5" aria-hidden>
+          <IconCalendarClock />
+        </div>
         <SectionHeading eyebrow="10 April" hi={whd.title.hi} en={whd.title.en} />
         <p lang="hi" className="max-w-3xl text-lg text-ink-soft">
           {whd.body.hi}

@@ -1,10 +1,31 @@
 import Link from "next/link";
+import { Reveal } from "@/components/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stat } from "@/components/ui/Stat";
 import { Button } from "@/components/ui/Button";
 import { Bilingual } from "@/components/Bilingual";
 import { LeadForm } from "@/components/LeadForm";
+import { ConsultationScene } from "@/components/illustrations/ConsultationScene";
+import {
+  IconBed,
+  IconBookOpen,
+  IconCalendarClock,
+  IconDroplet,
+  IconEar,
+  IconFileText,
+  IconFingerprint,
+  IconFlask,
+  IconGlobe,
+  IconHandHeart,
+  IconHospital,
+  IconLandmark,
+  IconMapPin,
+  IconScale,
+  IconShieldCheck,
+  IconStethoscope,
+  IconUsers,
+} from "@/components/icons";
 import { site } from "@/content/site";
 import {
   biharBlurb,
@@ -15,6 +36,8 @@ import {
   doctorsMinute,
   firstVisitPromise,
   hero,
+  indiaStats,
+  legalRecognition,
   promises,
   prosBlock,
   prosLimit,
@@ -23,62 +46,121 @@ import {
   visitReasonsNote,
 } from "@/content/home";
 
+const pillarIcons: Record<string, React.ReactNode> = {
+  OPD: <IconStethoscope />,
+  IPD: <IconBed />,
+  PHARMACY: <IconFlask />,
+  RECORDS: <IconFileText />,
+};
+
+const trustIcons = [<IconUsers key="0" />, <IconLandmark key="1" />, <IconScale key="2" />, <IconShieldCheck key="3" />];
+
+const promiseIcons: Record<string, React.ReactNode> = {
+  Awareness: <IconBookOpen />,
+  "Honest care": <IconHandHeart />,
+  "Doctors who stay": <IconUsers />,
+};
+
+const minuteIcons: Record<string, React.ReactNode> = {
+  "01": <IconEar />,
+  "02": <IconFingerprint />,
+  "03": <IconDroplet />,
+  "04": <IconCalendarClock />,
+};
+
+const indiaStatIcons = [<IconUsers key="0" />, <IconHospital key="1" />, <IconMapPin key="2" />];
+
+const legalIcons: Record<string, React.ReactNode> = {
+  ministry: <IconLandmark />,
+  council: <IconScale />,
+  pharma: <IconFlask />,
+  who: <IconGlobe />,
+};
+
 export default function HomePage() {
   return (
     <>
       {/* 1 — Hero. Doctor recruitment is the primary conversion. */}
       <section className="border-b border-line bg-surface">
         <div className="wrap grid gap-12 py-14 sm:py-20 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <div>
-            <p lang="hi" className="text-sm font-semibold text-brand-mid">
-              {hero.eyebrow.hi}
-            </p>
-            <h1 lang="hi" className="mt-5 text-[2rem] leading-tight font-semibold sm:text-5xl">
-              {hero.headline.hi}
-            </h1>
-            <p lang="en" className="mt-3 text-xl text-ink-soft">
-              {hero.headline.en}
-            </p>
-            <p lang="hi" className="mt-6 max-w-xl text-lg text-ink-soft">
-              {hero.sub.hi}
-            </p>
-            <p lang="en" className="mt-2 max-w-xl text-ink-muted">
-              {hero.sub.en}
-            </p>
+          <Reveal>
+            <div className="cascade">
+              <div>
+                <span className="brand-badge">
+                  <span lang="hi">अगस्ता होमियो</span>
+                  <span aria-hidden>·</span>
+                  <span lang="en">Agasta Homeo</span>
+                </span>
+                <p lang="hi" className="mt-3 text-sm font-semibold text-brand-mid">
+                  {hero.eyebrow.hi}
+                </p>
+                <p lang="en" className="text-sm font-medium text-ink-muted">
+                  {hero.eyebrow.en}
+                </p>
+              </div>
+              <div className="mt-5">
+                <h1 lang="hi" className="text-[2rem] leading-tight font-semibold sm:text-5xl">
+                  {hero.headline.hi}
+                </h1>
+                <p lang="en" className="mt-3 text-xl text-ink-soft">
+                  {hero.headline.en}
+                </p>
+              </div>
+              <div className="mt-6">
+                <p lang="hi" className="max-w-xl text-lg text-ink-soft">
+                  {hero.sub.hi}
+                </p>
+                <p lang="en" className="mt-2 max-w-xl text-ink-muted">
+                  {hero.sub.en}
+                </p>
+              </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/doctors">
-                <span lang="hi">{hero.ctaPrimary.hi}</span>
-              </Button>
-              <Button href="#callback" variant="secondary">
-                <span lang="hi">{hero.ctaSecondary.hi}</span>
-              </Button>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button href="/doctors" className="i18n-swap">
+                  <span lang="hi">{hero.ctaPrimary.hi}</span>
+                  <span lang="en">{hero.ctaPrimary.en}</span>
+                </Button>
+                <Button href="#callback" variant="secondary" className="i18n-swap">
+                  <span lang="hi">{hero.ctaSecondary.hi}</span>
+                  <span lang="en">{hero.ctaSecondary.en}</span>
+                </Button>
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <aside className="self-center rounded-2xl border border-brand-line bg-brand-soft p-7">
-            <p lang="hi" className="text-lg leading-relaxed font-medium text-brand-dark">
-              {hero.vision.hi}
-            </p>
-            <p lang="en" className="mt-4 text-sm leading-relaxed text-ink-soft">
-              {hero.vision.en}
-            </p>
-          </aside>
+          <div className="flex flex-col gap-6">
+            <div className="overflow-hidden rounded-2xl border border-brand-line bg-surface p-4 sm:p-6">
+              <ConsultationScene className="mx-auto h-auto w-full max-w-sm" />
+            </div>
+            <aside className="rounded-2xl border border-brand-line bg-brand-soft p-7">
+              <p lang="hi" className="text-lg leading-relaxed font-medium text-brand-dark">
+                {hero.vision.hi}
+              </p>
+              <p lang="en" className="mt-4 text-sm leading-relaxed text-ink-soft">
+                {hero.vision.en}
+              </p>
+            </aside>
+          </div>
         </div>
       </section>
 
       {/* 2 — Trust strip */}
       <div className="border-b border-line bg-brand-dark">
         <div className="wrap grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
-          {trustStrip.map((item) => (
-            <div key={item.en}>
-              <p lang="hi" className="font-semibold text-white">
-                {item.hi}
-              </p>
-              <p lang="en" className="mt-1 text-sm text-brand-line">
-                {item.en}
-              </p>
-              <p className="mt-2 text-xs text-white/40">{item.note}</p>
+          {trustStrip.map((item, i) => (
+            <div key={item.en} className="flex gap-4">
+              <div className="icon-badge invert" aria-hidden>
+                {trustIcons[i]}
+              </div>
+              <div>
+                <p lang="hi" className="font-semibold text-white">
+                  {item.hi}
+                </p>
+                <p lang="en" className="mt-1 text-sm text-brand-line">
+                  {item.en}
+                </p>
+                <p className="mt-2 text-xs text-white/40">{item.note}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -87,17 +169,23 @@ export default function HomePage() {
       {/* 3 — What we are building. Establishes "company", not "clinic". */}
       <Section>
         <SectionHeading
-          eyebrow="What we are building"
+          eyebrow="OPD · IPD · Pharmacy · Records"
           hi={building.title.hi}
           en={building.title.en}
         />
-        <p lang="hi" className="mb-10 max-w-3xl text-lg text-ink-soft">
+        <p lang="hi" className="mb-2 max-w-3xl text-lg text-ink-soft">
           {building.lede.hi}
         </p>
+        <p lang="en" className="mb-10 max-w-3xl text-ink-muted">
+          {building.lede.en}
+        </p>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="stagger grid gap-5 sm:grid-cols-2">
           {building.pillars.map((pillar) => (
-            <article key={pillar.tag} className="rounded-xl border border-line bg-surface p-6">
+            <article key={pillar.tag} className="card-hover rounded-xl border border-line bg-surface p-6">
+              <div className="icon-badge mb-4" aria-hidden>
+                {pillarIcons[pillar.tag]}
+              </div>
               <p className="text-xs font-semibold tracking-[0.16em] text-brand-mid uppercase">
                 {pillar.tag}
               </p>
@@ -152,9 +240,10 @@ export default function HomePage() {
           <Link
             data-cta
             href="/doctors"
-            className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 text-base font-semibold text-brand-dark transition-colors hover:bg-brand-line"
+            className="i18n-swap inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 text-base font-semibold text-brand-dark transition-colors hover:bg-brand-line"
           >
             <span lang="hi">{careersTeaser.cta.hi}</span>
+            <span lang="en">{careersTeaser.cta.en}</span>
           </Link>
         </div>
       </Section>
@@ -166,9 +255,12 @@ export default function HomePage() {
           hi="तीन वादे"
           en="Three promises we intend to keep"
         />
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="stagger grid gap-6 md:grid-cols-3">
           {promises.map((item) => (
-            <article key={item.title.en} className="rounded-xl border border-line bg-surface p-6">
+            <article key={item.title.en} className="card-hover rounded-xl border border-line bg-surface p-6">
+              <div className="icon-badge mb-4" aria-hidden>
+                {promiseIcons[item.title.en]}
+              </div>
               <h3 lang="hi" className="text-xl font-semibold">
                 {item.title.hi}
               </h3>
@@ -203,8 +295,9 @@ export default function HomePage() {
             </p>
           </div>
           <div className="self-start rounded-xl border border-brand-line bg-surface p-6">
-            <h3 className="mb-3 text-sm font-semibold text-accent">
+            <h3 className="i18n-swap mb-3 text-sm font-semibold text-accent">
               <span lang="hi">हम क्या नहीं हैं</span>
+              <span lang="en">What we are not</span>
             </h3>
             <p lang="hi" className="text-ink">
               {prosLimit.hi}
@@ -216,18 +309,63 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 7 — People often visit us for… (never "we treat") */}
+      {/* 6.5 — Legal recognition + India infrastructure, stated proudly once */}
       <Section>
+        <SectionHeading
+          eyebrow="Recognised in India"
+          hi={legalRecognition.title.hi}
+          en={legalRecognition.title.en}
+        />
+        <p lang="hi" className="max-w-3xl text-lg text-ink-soft">
+          {legalRecognition.lede.hi}
+        </p>
+        <p lang="en" className="mt-3 max-w-3xl text-ink-muted">
+          {legalRecognition.lede.en}
+        </p>
+
+        <div className="stagger mt-10 grid gap-4 sm:grid-cols-3">
+          {indiaStats.map((stat, i) => (
+            <Stat key={stat.value} value={stat.value} label={stat.label} source={stat.source} icon={indiaStatIcons[i]} />
+          ))}
+        </div>
+
+        <div className="stagger mt-6 grid gap-5 md:grid-cols-2">
+          {legalRecognition.points.map((point) => (
+            <article key={point.key} className="flex gap-4 rounded-xl border border-line bg-surface p-6">
+              <div className="icon-badge shrink-0" aria-hidden>
+                {legalIcons[point.key]}
+              </div>
+              <div>
+                <h3 lang="hi" className="font-semibold text-brand-dark">
+                  {point.title.hi}
+                </h3>
+                <p lang="en" className="text-xs font-medium tracking-wide text-ink-muted uppercase">
+                  {point.title.en}
+                </p>
+                <p lang="hi" className="mt-2 text-sm text-ink-soft">
+                  {point.body.hi}
+                </p>
+                <p lang="en" className="mt-1 text-xs text-ink-muted">
+                  {point.body.en}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      {/* 7 — People often visit us for… (never "we treat") */}
+      <Section tone="soft">
         <SectionHeading
           eyebrow="People often visit us for"
           hi="लोग आमतौर पर इन शिकायतों के साथ आते हैं"
           en="What people usually come to us with"
         />
-        <ul className="flex flex-wrap gap-2.5">
+        <ul className="stagger flex flex-wrap gap-2.5">
           {visitReasons.map((reason) => (
             <li
               key={reason.en}
-              className="rounded-full border border-brand-line bg-brand-soft px-4 py-2.5 text-sm"
+              className="rounded-full border border-brand-line bg-surface px-4 py-2.5 text-sm"
             >
               <span lang="hi" className="text-brand-dark">
                 {reason.hi}
@@ -246,26 +384,29 @@ export default function HomePage() {
         <p className="mt-6">
           <Link
             href="/homoeopathy#dual-care"
-            className="font-semibold text-brand underline underline-offset-4"
-            lang="hi"
+            className="i18n-swap font-semibold text-brand underline underline-offset-4"
           >
-            और यह भी देखें: कब सीधे अस्पताल जाना है →
+            <span lang="hi">और यह भी देखें: कब सीधे अस्पताल जाना है →</span>
+            <span lang="en">Also see: when to go straight to a hospital →</span>
           </Link>
         </p>
       </Section>
 
       {/* 8 — A doctor's minute */}
-      <Section tone="soft">
+      <Section>
         <SectionHeading
           eyebrow="A doctor's minute"
           hi="एक चिकित्सक का एक मिनट"
           en="What actually happens in a consultation"
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {doctorsMinute.map((step) => (
-            <article key={step.step} className="rounded-xl border border-brand-line bg-surface p-6">
+            <article key={step.step} className="card-hover rounded-xl border border-brand-line bg-surface p-6">
+              <div className="icon-badge mb-4" aria-hidden>
+                {minuteIcons[step.step]}
+              </div>
               <p className="text-sm font-semibold text-brand-mid">{step.step}</p>
-              <h3 lang="hi" className="mt-3 text-xl font-semibold">
+              <h3 lang="hi" className="mt-2 text-xl font-semibold">
                 {step.title.hi}
               </h3>
               <p lang="en" className="text-sm text-ink-muted">
@@ -289,9 +430,9 @@ export default function HomePage() {
       </Section>
 
       {/* 9 — Bihar */}
-      <Section>
+      <Section tone="soft">
         <SectionHeading eyebrow="Why Bihar" hi="बिहार क्यों" en="Why Bihar" />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {biharStats.map((stat) => (
             <Stat key={stat.value} value={stat.value} label={stat.label} source={stat.source} />
           ))}
@@ -311,20 +452,21 @@ export default function HomePage() {
           </p>
         </div>
         <p className="mt-8">
-          <Link href="/bihar" className="font-semibold text-brand underline underline-offset-4" lang="hi">
-            बिहार के पूरे आँकड़े देखें →
+          <Link href="/bihar" className="i18n-swap font-semibold text-brand underline underline-offset-4">
+            <span lang="hi">बिहार के पूरे आँकड़े देखें →</span>
+            <span lang="en">See all the Bihar numbers →</span>
           </Link>
         </p>
       </Section>
 
       {/* 10 — Patient waitlist */}
-      <Section id="callback" tone="soft" narrow>
+      <Section id="callback" narrow>
         <SectionHeading
           eyebrow="Request a callback"
           hi="अस्पताल खुलने पर हमें आपको कॉल करने दीजिए"
           en="Let us call you when a hospital opens near you"
         />
-        <div className="mb-8 rounded-xl border border-brand-line bg-surface p-5">
+        <div className="mb-8 rounded-xl border border-brand-line bg-brand-soft p-5">
           <p lang="hi" className="text-ink">
             {hero.waitlistNote.hi}
           </p>

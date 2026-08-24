@@ -2,8 +2,33 @@ import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WhatsAppCta } from "@/components/WhatsAppCta";
-import { applyCta, evp, intro, offer } from "@/content/doctors";
+import {
+  IconArrowRight,
+  IconCheckCircle,
+  IconGraduationCap,
+  IconHandHeart,
+  IconMapPin,
+  IconNetwork,
+  IconScale,
+  IconShieldCheck,
+  IconTrendingUp,
+  IconWallet,
+  IconWrench,
+} from "@/components/icons";
+import { applyCta, evp, growthLadder, intro, offer } from "@/content/doctors";
 import { site } from "@/content/site";
+
+const evpIcons: Record<string, React.ReactNode> = {
+  "Clinical dignity": <IconHandHeart />,
+  "No forced sales": <IconShieldCheck />,
+  "A salary date": <IconWallet />,
+  "Registration respected": <IconScale />,
+  CME: <IconGraduationCap />,
+  "A referral network": <IconNetwork />,
+  Tools: <IconWrench />,
+  Growth: <IconTrendingUp />,
+  "Location honesty": <IconMapPin />,
+};
 
 export const metadata: Metadata = {
   title: "BHMS jobs Bihar | चिकित्सकों के लिए",
@@ -46,8 +71,15 @@ export default function DoctorsPage() {
               {evp.map((row) => (
                 <tr key={row.promise.en} className="border-b border-line align-top last:border-0">
                   <td className="p-4">
-                    <span lang="hi" className="block font-semibold text-ink">{row.promise.hi}</span>
-                    <span lang="en" className="mt-1 block text-xs text-ink-muted">{row.promise.en}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="icon-badge h-9 w-9" aria-hidden>
+                        {evpIcons[row.promise.en]}
+                      </span>
+                      <span>
+                        <span lang="hi" className="block font-semibold text-ink">{row.promise.hi}</span>
+                        <span lang="en" className="mt-1 block text-xs text-ink-muted">{row.promise.en}</span>
+                      </span>
+                    </div>
                   </td>
                   <td className="p-4">
                     <span lang="hi" className="block text-ink-soft">{row.monday.hi}</span>
@@ -60,13 +92,39 @@ export default function DoctorsPage() {
         </div>
       </Section>
 
+      {/* Growth ladder — §6.1's "Growth" table row, as a visual path. */}
+      <Section tone="soft">
+        <SectionHeading eyebrow="Growth" hi="आगे बढ़ने का रास्ता" en="A path, not a dead end" />
+        <div className="flex flex-wrap items-center gap-3">
+          {growthLadder.map((step, i) => (
+            <div key={step.en} className="flex items-center gap-3">
+              <div className="flex items-center gap-3 rounded-xl border border-brand-line bg-surface py-3 pr-5 pl-3">
+                <span className="icon-badge sm" aria-hidden>
+                  <IconTrendingUp />
+                </span>
+                <span>
+                  <span lang="hi" className="block text-sm font-semibold text-brand-dark">{step.hi}</span>
+                  <span lang="en" className="block text-xs text-ink-muted">{step.en}</span>
+                </span>
+              </div>
+              {i < growthLadder.length - 1 ? (
+                <IconArrowRight className="h-5 w-5 shrink-0 text-brand-line" aria-hidden />
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </Section>
+
       <Section>
         <SectionHeading eyebrow="The offer" hi="क्या मिलेगा" en="What the role offers" />
-        <ul className="grid gap-3 md:grid-cols-2">
+        <ul className="stagger grid gap-3 md:grid-cols-2">
           {offer.map((item) => (
-            <li key={item.en} className="rounded-lg border border-line bg-surface p-4">
-              <span lang="hi" className="block text-ink">{item.hi}</span>
-              <span lang="en" className="mt-1 block text-sm text-ink-muted">{item.en}</span>
+            <li key={item.en} className="flex gap-3 rounded-lg border border-line bg-surface p-4">
+              <IconCheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-brand-mid" aria-hidden />
+              <span>
+                <span lang="hi" className="block text-ink">{item.hi}</span>
+                <span lang="en" className="mt-1 block text-sm text-ink-muted">{item.en}</span>
+              </span>
             </li>
           ))}
         </ul>
@@ -88,20 +146,23 @@ export default function DoctorsPage() {
               href={site.doctorFormUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 text-base font-semibold text-brand-dark transition-colors hover:bg-brand-line"
+              className="i18n-swap inline-flex items-center justify-center rounded-lg bg-white px-6 py-3.5 text-base font-semibold text-brand-dark transition-colors hover:bg-brand-line"
             >
               <span lang="hi">{applyCta.button.hi}</span>
+              <span lang="en">{applyCta.button.en}</span>
             </a>
           ) : (
-            <p
-              lang="hi"
-              className="rounded-lg border border-white/25 bg-white/10 px-5 py-4 text-sm text-white"
-            >
-              आवेदन फ़ॉर्म का लिंक जल्द यहाँ लगेगा। तब तक व्हाट्सएप पर संपर्क करें।
-              <span lang="en" className="mt-1 block text-brand-line">
+            // Two sibling paragraphs, not one nested inside the other — a
+            // [lang="hi"] wrapper hides all its children when English is
+            // selected, which would have taken the English line down with it.
+            <div className="rounded-lg border border-white/25 bg-white/10 px-5 py-4 text-sm">
+              <p lang="hi" className="text-white">
+                आवेदन फ़ॉर्म का लिंक जल्द यहाँ लगेगा। तब तक व्हाट्सएप पर संपर्क करें।
+              </p>
+              <p lang="en" className="text-brand-line">
                 The application form link goes here shortly. Until then, reach us on WhatsApp.
-              </span>
-            </p>
+              </p>
+            </div>
           )}
         </div>
 

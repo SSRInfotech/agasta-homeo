@@ -2,7 +2,19 @@ import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stat } from "@/components/ui/Stat";
+import {
+  IconCheckCircle,
+  IconDroplet,
+  IconGraduationCap,
+  IconHospital,
+  IconLandmark,
+  IconMapPin,
+  IconUsers,
+} from "@/components/icons";
 import { cag, campaign, intro, nfhs, orsCallout, talent } from "@/content/bihar";
+
+const cagIcons = [<IconUsers key="0" />, <IconLandmark key="1" />, <IconHospital key="2" />, <IconMapPin key="3" />];
+const talentIcons = [<IconGraduationCap key="0" />, <IconUsers key="1" />, <IconHospital key="2" />];
 
 export const metadata: Metadata = {
   title: "बिहार क्यों | Why Bihar",
@@ -58,9 +70,14 @@ export default function BiharPage() {
         <p lang="hi" className="mt-4 text-xs text-ink-muted">{nfhs.sourceNote.hi}</p>
         <p lang="en" className="text-xs text-ink-muted">{nfhs.sourceNote.en}</p>
 
-        <div className="mt-10 rounded-xl border-2 border-alert/30 bg-alert-soft p-6">
-          <p lang="hi" className="text-lg font-semibold text-alert">{orsCallout.hi}</p>
-          <p lang="en" className="mt-2 text-sm text-alert/80">{orsCallout.en}</p>
+        <div className="mt-10 flex gap-4 rounded-xl border-2 border-alert/30 bg-alert-soft p-6">
+          <div className="icon-badge alert shrink-0" aria-hidden>
+            <IconDroplet />
+          </div>
+          <div>
+            <p lang="hi" className="text-lg font-semibold text-alert">{orsCallout.hi}</p>
+            <p lang="en" className="mt-2 text-sm text-alert/80">{orsCallout.en}</p>
+          </div>
         </div>
       </Section>
 
@@ -70,9 +87,9 @@ export default function BiharPage() {
           hi="और अस्पताल क्यों चाहिए"
           en="Why more hospitals are needed"
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {cag.rows.map((row) => (
-            <Stat key={row.value} value={row.value} label={row.label} />
+        <div className="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {cag.rows.map((row, i) => (
+            <Stat key={row.value} value={row.value} label={row.label} icon={cagIcons[i]} />
           ))}
         </div>
         <p lang="hi" className="mt-6 text-xs text-ink-muted">{cag.sourceNote.hi}</p>
@@ -81,9 +98,9 @@ export default function BiharPage() {
 
       <Section tone="soft">
         <SectionHeading eyebrow="Talent" hi={talent.title.hi} en={talent.title.en} />
-        <div className="grid gap-4 md:grid-cols-3">
-          {talent.rows.map((row) => (
-            <Stat key={row.value} value={row.value} label={row.label} source={row.source} />
+        <div className="stagger grid gap-4 md:grid-cols-3">
+          {talent.rows.map((row, i) => (
+            <Stat key={row.value} value={row.value} label={row.label} source={row.source} icon={talentIcons[i]} />
           ))}
         </div>
         <p lang="hi" className="mt-8 max-w-3xl text-lg text-ink-soft">{talent.note.hi}</p>
@@ -92,11 +109,14 @@ export default function BiharPage() {
 
       <Section>
         <SectionHeading eyebrow="Our campaign" hi={campaign.title.hi} en={campaign.title.en} />
-        <ul className="grid gap-3 md:grid-cols-2">
+        <ul className="stagger grid gap-3 md:grid-cols-2">
           {campaign.items.map((item) => (
-            <li key={item.en} className="rounded-lg border border-line bg-surface p-4">
-              <span lang="hi" className="block text-ink">{item.hi}</span>
-              <span lang="en" className="mt-1 block text-sm text-ink-muted">{item.en}</span>
+            <li key={item.en} className="flex gap-3 rounded-lg border border-line bg-surface p-4">
+              <IconCheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-brand-mid" aria-hidden />
+              <span>
+                <span lang="hi" className="block text-ink">{item.hi}</span>
+                <span lang="en" className="mt-1 block text-sm text-ink-muted">{item.en}</span>
+              </span>
             </li>
           ))}
         </ul>

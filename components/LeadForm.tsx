@@ -56,15 +56,15 @@ export function LeadForm({ source }: { source: string }) {
 
   if (state === "done") {
     return (
-      <div className="rounded-xl border border-brand-line bg-brand-soft p-6">
+      <div className="animate-fade-in-up rounded-xl border border-brand-line bg-brand-soft p-6">
         <p lang="hi" className="text-lg font-semibold text-brand-dark">
           धन्यवाद। आपका नाम दर्ज हो गया है।
         </p>
         <p lang="hi" className="mt-2 text-ink-soft">
-          हमारे ज़िले में क्लिनिक खुलने पर हम इसी नंबर पर कॉल करेंगे। यह चिकित्सा परामर्श नहीं था।
+          हमारे ज़िले में अस्पताल खुलने पर हम इसी नंबर पर कॉल करेंगे। यह चिकित्सा परामर्श नहीं था।
         </p>
         <p lang="en" className="mt-3 text-sm text-ink-muted">
-          Thank you — we have your details. We will call this number when a clinic opens near you.
+          Thank you — we have your details. We will call this number when a hospital opens near you.
           This was not a medical consultation.
         </p>
       </div>
@@ -130,6 +130,10 @@ export function LeadForm({ source }: { source: string }) {
         <p lang="hi" className="mt-2 text-xs text-ink-muted">
           कृपया यहाँ अपनी बीमारी का विवरण न लिखें। लक्षण केवल चिकित्सक, केस लेते समय पूछते हैं।
         </p>
+        <p lang="en" className="mt-1 text-xs text-ink-muted">
+          Please do not describe your symptoms here. A doctor asks about symptoms only while taking
+          your case.
+        </p>
       </div>
 
       <label htmlFor="consent" className="flex items-start gap-3 rounded-lg bg-brand-soft/60 p-4">
@@ -153,7 +157,7 @@ export function LeadForm({ source }: { source: string }) {
       </label>
 
       {state === "error" ? (
-        <p role="alert" lang="hi" className="rounded-lg bg-alert-soft px-4 py-3 text-sm text-alert">
+        <p role="alert" className="animate-fade-in-up rounded-lg bg-alert-soft px-4 py-3 text-sm text-alert">
           {message}
         </p>
       ) : null}
@@ -161,9 +165,11 @@ export function LeadForm({ source }: { source: string }) {
       <button
         type="submit"
         disabled={state === "submitting"}
-        className="inline-flex items-center justify-center rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
+        className="i18n-swap inline-flex items-center justify-center gap-2.5 rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white transition-all duration-200 hover:bg-brand-dark active:scale-[0.98] disabled:opacity-70"
       >
+        {state === "submitting" ? <span aria-hidden className="spinner" /> : null}
         <span lang="hi">{state === "submitting" ? "भेजा जा रहा है…" : "नाम दर्ज करें"}</span>
+        <span lang="en">{state === "submitting" ? "Sending…" : "Submit details"}</span>
       </button>
     </form>
   );

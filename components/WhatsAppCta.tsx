@@ -11,9 +11,10 @@ export function WhatsAppCta({ text, compact = false }: { text?: string; compact?
         data-cta
         href={wa.href}
         {...(wa.ready ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="inline-flex items-center justify-center rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-dark"
+        className="i18n-swap inline-flex items-center justify-center rounded-lg bg-brand px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-dark"
       >
         <span lang="hi">व्हाट्सएप पर बात करें</span>
+        <span lang="en">Talk to us on WhatsApp</span>
       </a>
       {tel.ready ? (
         <a

@@ -58,6 +58,14 @@ export const offer: Bi[] = [
   { hi: "मिशन: जिस भी ज़िले में जाएँ, वहाँ होम्योपैथी को समझा हुआ छोड़ें", en: "Mission: make homoeopathy understood in every district we enter" },
 ];
 
+/** §6.1 "Growth" row, as a standalone visual ladder. */
+export const growthLadder: Bi[] = [
+  { hi: "रेज़िडेंट", en: "Resident" },
+  { hi: "कंसल्टेंट", en: "Consultant" },
+  { hi: "इन-चार्ज", en: "In-charge" },
+  { hi: "ज़िला क्लिनिकल लीड", en: "District clinical lead" },
+];
+
 export const applyCta = {
   title: { hi: "आवेदन कैसे करें", en: "How to apply" } satisfies Bi,
   body: {

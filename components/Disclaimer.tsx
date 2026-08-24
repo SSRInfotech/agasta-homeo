@@ -5,8 +5,9 @@ export function Disclaimer() {
   return (
     <aside className="border-t border-line bg-brand-soft/50">
       <div className="wrap py-10">
-        <h2 className="mb-3 text-sm font-semibold text-brand">
-          <span lang="hi">अस्वीकरण</span> <span lang="en" className="text-ink-muted">/ Disclaimer</span>
+        <h2 className="i18n-swap mb-3 text-sm font-semibold text-brand">
+          <span lang="hi">अस्वीकरण</span>
+          <span lang="en">Disclaimer</span>
         </h2>
         <p lang="hi" className="max-w-4xl text-[0.95rem] leading-relaxed text-ink-soft">
           {disclaimer.hi}

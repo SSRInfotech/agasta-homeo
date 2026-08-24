@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { EmergencyStrip } from "@/components/EmergencyStrip";
 import { Header } from "@/components/Header";
@@ -66,6 +67,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
+        {/*
+          Runs before hydration (next/script beforeInteractive) so a
+          returning visitor who chose English never sees a flash of Hindi
+          on load. Mirrors the LanguageToggle component's own logic.
+        */}
+        <Script id="lang-init" strategy="beforeInteractive">
+          {`try {
+            if (localStorage.getItem("agasta-lang") === "en") {
+              document.documentElement.dataset.lang = "en";
+              document.documentElement.lang = "en";
+            }
+          } catch (e) {}`}
+        </Script>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded focus:bg-brand focus:px-4 focus:py-2 focus:text-white"

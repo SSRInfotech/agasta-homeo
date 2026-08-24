@@ -22,6 +22,9 @@ export function Footer() {
           <p lang="hi" className="mt-5 max-w-sm text-sm text-brand-line">
             {pharmacyLine.hi}
           </p>
+          <p lang="en" className="text-sm text-white/50">
+            {pharmacyLine.en}
+          </p>
         </div>
 
         <nav aria-label="Footer">
@@ -31,14 +34,16 @@ export function Footer() {
           <ul className="space-y-2 text-sm">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-brand-line hover:text-white" lang="hi">
-                  {item.hi}
+                <Link href={item.href} className="i18n-swap text-brand-line hover:text-white">
+                  <span lang="hi">{item.hi}</span>
+                  <span lang="en">{item.en}</span>
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/privacy" className="text-brand-line hover:text-white" lang="hi">
-                निजता नीति
+              <Link href="/privacy" className="i18n-swap text-brand-line hover:text-white">
+                <span lang="hi">निजता नीति</span>
+                <span lang="en">Privacy policy</span>
               </Link>
             </li>
           </ul>
@@ -77,8 +82,8 @@ export function Footer() {
             {gst ? ` · GST ${gst}` : ""}
           </p>
           <p>
-            <span lang="hi">आपात स्थिति में {site.emergencyNumber}</span> · Emergency{" "}
-            {site.emergencyNumber}
+            <span lang="hi">आपात स्थिति में {site.emergencyNumber}</span>
+            <span lang="en">Emergency {site.emergencyNumber}</span>
           </p>
         </div>
       </div>

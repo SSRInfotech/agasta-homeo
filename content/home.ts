@@ -239,6 +239,63 @@ export const prosLimit: Bi = {
 };
 /* claim-lint-ok-end */
 
+/** §4.1 — the hero stat trio for India infrastructure. Each figure sourced. */
+export const indiaStats: Array<{ value: string; label: Bi; source: string }> = [
+  {
+    value: "3.45 लाख",
+    label: { hi: "पंजीकृत होम्योपैथिक चिकित्सक, पूरे भारत में", en: "Registered homoeopathic doctors, across India" },
+    source: "PIB, World Homoeopathy Day 2026",
+  },
+  {
+    value: "277",
+    label: { hi: "होम्योपैथिक अस्पताल, राष्ट्रीय स्तर पर", en: "Homoeopathic hospitals, nationally" },
+    source: "PIB / Ayush Vaibhav, July 2025",
+  },
+  {
+    value: "8,593",
+    label: { hi: "होम्योपैथिक औषधालय, राष्ट्रीय स्तर पर", en: "Homoeopathic dispensaries, nationally" },
+    source: "PIB / Ayush Vaibhav, July 2025",
+  },
+];
+
+/**
+ * §2.4 — legal status, stated plainly and proudly, once. Every point is an
+ * institutional fact (ministry, commission, pharmacopoeia, WHO listing),
+ * never a claim about what any medicine does for a named condition.
+ */
+export const legalRecognition = {
+  title: {
+    hi: "भारत में यह पद्धति वैधानिक है — कोई ग्रे मार्केट नहीं",
+    en: "Recognised and regulated in India — not a grey market",
+  } satisfies Bi,
+  lede: {
+    hi: "होम्योपैथी भारत में क़ानूनी अर्थ में ‘वैकल्पिक’ नहीं है। यह आयुष मंत्रालय के अंतर्गत एक मान्यता प्राप्त पद्धति है, BHMS और MD (होम्यो) के रूप में पढ़ाई जाती है, केवल पंजीकृत चिकित्सकों द्वारा की जाती है, और तय फ़ार्माकोपियल मानकों से बनाई जाती है।",
+    en: "In India, homoeopathy is not “alternative” in the legal sense. It is a recognised system under the Ministry of Ayush, taught as BHMS and MD (Homoeopathy), practised only by registered practitioners, and manufactured to fixed pharmacopoeial standards.",
+  } satisfies Bi,
+  points: [
+    {
+      key: "ministry",
+      title: { hi: "आयुष मंत्रालय", en: "Ministry of Ayush" },
+      body: { hi: "2014 से एक पूर्ण केंद्रीय मंत्रालय — कोई अपरिभाषित विभाग नहीं।", en: "A full central ministry since 2014, not an undefined department." },
+    },
+    {
+      key: "council",
+      title: { hi: "राष्ट्रीय होम्योपैथी आयोग", en: "National Commission for Homoeopathy" },
+      body: { hi: "अधिनियम 2020, 5 जुलाई 2021 से प्रभावी — कॉलेज, आचार-संहिता और राष्ट्रीय रजिस्टर का नियामक।", en: "Act 2020, in force 5 July 2021 — the regulator for colleges, ethics and the national register." },
+    },
+    {
+      key: "pharma",
+      title: { hi: "फ़ार्माकोपिया मानक", en: "Pharmacopoeial standards" },
+      body: { hi: "PCIM&H के लगभग 1,117 मोनोग्राफ़ और क़रीब 384 लाइसेंस-प्राप्त निर्माता।", en: "About 1,117 PCIM&H monographs and roughly 384 licensed manufacturers." },
+    },
+    {
+      key: "who",
+      title: { hi: "WHO के दस्तावेज़ में", en: "On the WHO record" },
+      body: { hi: "WHO पारंपरिक चिकित्सा रणनीति 2025–2034 (WHA78(14), 27 मई 2025) में सूचीबद्ध — यह पारंपरिक चिकित्सा को एक नीति-क्षेत्र के रूप में मान्यता है, हर औषधि के असर का प्रमाण नहीं।", en: "Listed in the WHO Traditional Medicine Strategy 2025–2034 (WHA78(14), 27 May 2025) — recognition of traditional medicine as a policy field, not proof that every remedy works." },
+    },
+  ] as Array<{ key: string; title: Bi; body: Bi }>,
+};
+
 export const careersTeaser = {
   headline: { hi: "आप चिकित्सा कीजिए। अस्पताल हम चलाएँगे।", en: "Practise homoeopathy. We will run the hospital." } satisfies Bi,
   body: {

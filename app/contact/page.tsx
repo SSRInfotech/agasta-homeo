@@ -28,20 +28,29 @@ export default function ContactPage() {
 
       <Section tone="soft">
         <div className="grid gap-6 lg:grid-cols-3">
-          <article className="rounded-xl border border-brand-line bg-surface p-6">
-            <h2 lang="hi" className="text-lg font-semibold text-brand-dark">अस्पताल</h2>
+          <article className="card-hover rounded-xl border border-brand-line bg-surface p-6">
+            <h2 className="i18n-swap text-lg font-semibold text-brand-dark">
+              <span lang="hi">अस्पताल</span>
+              <span lang="en">Hospital</span>
+            </h2>
             <p lang="hi" className="mt-3 text-sm text-ink-soft">{noHospitalYet.hi}</p>
             <p lang="en" className="mt-2 text-sm text-ink-muted">{noHospitalYet.en}</p>
           </article>
 
-          <article className="rounded-xl border border-brand-line bg-surface p-6">
-            <h2 lang="hi" className="text-lg font-semibold text-brand-dark">व्हाट्सएप डेस्क</h2>
+          <article className="card-hover rounded-xl border border-brand-line bg-surface p-6">
+            <h2 className="i18n-swap text-lg font-semibold text-brand-dark">
+              <span lang="hi">व्हाट्सएप डेस्क</span>
+              <span lang="en">WhatsApp desk</span>
+            </h2>
             <p lang="hi" className="mt-3 text-sm text-ink-soft">{deskRule.hi}</p>
             <p lang="en" className="mt-2 text-sm text-ink-muted">{deskRule.en}</p>
           </article>
 
-          <article className="rounded-xl border border-brand-line bg-surface p-6">
-            <h2 lang="hi" className="text-lg font-semibold text-brand-dark">ईमेल</h2>
+          <article className="card-hover rounded-xl border border-brand-line bg-surface p-6">
+            <h2 className="i18n-swap text-lg font-semibold text-brand-dark">
+              <span lang="hi">ईमेल</span>
+              <span lang="en">Email</span>
+            </h2>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
                 <a href={`mailto:${site.email.care}`} className="text-brand underline underline-offset-4">

@@ -1,8 +1,26 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import {
+  IconFileText,
+  IconFlask,
+  IconHandHeart,
+  IconHospital,
+  IconLeaf,
+  IconShieldCheck,
+  IconStethoscope,
+  IconWallet,
+} from "@/components/icons";
 import { builders, governance, intro, mission, operatingModel, umbrella } from "@/content/about";
 import { site } from "@/content/site";
+
+const verticalIcons: Record<string, React.ReactNode> = {
+  "Agasta Homeo": <IconStethoscope />,
+  Ayurveda: <IconLeaf />,
+  Physiotherapy: <IconHandHeart />,
+};
+
+const operatingModelIcons = [<IconHospital key="0" />, <IconWallet key="1" />, <IconFlask key="2" />, <IconFileText key="3" />, <IconShieldCheck key="4" />];
 
 export const metadata: Metadata = {
   title: "हमारे बारे में | About",
@@ -27,7 +45,7 @@ export default function AboutPage() {
         <SectionHeading eyebrow="Structure" hi={umbrella.title.hi} en={umbrella.title.en} />
         <div className="rounded-xl border border-brand-line bg-surface p-6 sm:p-8">
           <p className="text-lg font-semibold text-brand-dark">{umbrella.parent}</p>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+          <ul className="stagger mt-6 grid gap-3 sm:grid-cols-3">
             {umbrella.verticals.map((vertical) => (
               <li
                 key={vertical.name.en}
@@ -35,6 +53,9 @@ export default function AboutPage() {
                   vertical.live ? "border-brand bg-brand-soft" : "border-dashed border-line bg-bg"
                 }`}
               >
+                <span className={`icon-badge sm mb-3 ${vertical.live ? "" : "opacity-50"}`} aria-hidden>
+                  {verticalIcons[vertical.name.en]}
+                </span>
                 <span lang="hi" className={`block font-semibold ${vertical.live ? "text-brand-dark" : "text-ink-muted"}`}>
                   {vertical.name.hi}
                 </span>
@@ -43,6 +64,9 @@ export default function AboutPage() {
                 </span>
                 <span lang="hi" className="mt-3 block text-xs text-ink-muted">
                   {vertical.status.hi}
+                </span>
+                <span lang="en" className="mt-0.5 block text-xs text-ink-muted">
+                  {vertical.status.en}
                 </span>
               </li>
             ))}
@@ -58,9 +82,12 @@ export default function AboutPage() {
           hi={operatingModel.title.hi}
           en={operatingModel.title.en}
         />
-        <ul className="grid gap-4 md:grid-cols-2">
-          {operatingModel.rows.map((row) => (
-            <li key={row.ours.en} className="rounded-xl border border-line bg-surface p-5">
+        <ul className="stagger grid gap-4 md:grid-cols-2">
+          {operatingModel.rows.map((row, i) => (
+            <li key={row.ours.en} className="card-hover rounded-xl border border-line bg-surface p-5">
+              <span className="icon-badge sm mb-3" aria-hidden>
+                {operatingModelIcons[i]}
+              </span>
               <p lang="hi" className="font-semibold text-brand-dark">
                 {row.ours.hi}
               </p>

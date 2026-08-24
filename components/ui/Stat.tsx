@@ -1,4 +1,6 @@
+import type { ReactNode } from "react";
 import type { Bi } from "@/content/site";
+import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 
 /**
  * Every published figure carries its source. AGASTA_FOUNDATION_DOC.md:
@@ -9,20 +11,27 @@ export function Stat({
   label,
   source,
   invert = false,
+  icon,
 }: {
   value: string;
   label: Bi;
   source?: string;
   invert?: boolean;
+  icon?: ReactNode;
 }) {
   return (
     <figure
       className={`rounded-xl border p-5 ${
-        invert ? "border-white/15 bg-white/5" : "border-line bg-surface"
+        invert ? "border-white/15 bg-white/5" : "card-hover border-line bg-surface"
       }`}
     >
+      {icon ? (
+        <div className={`icon-badge mb-4 ${invert ? "invert" : ""}`} aria-hidden>
+          {icon}
+        </div>
+      ) : null}
       <div className={`text-3xl font-semibold sm:text-4xl ${invert ? "text-white" : "text-brand"}`}>
-        {value}
+        <AnimatedNumber value={value} />
       </div>
       <figcaption className="mt-3">
         <span lang="hi" className={`block text-base ${invert ? "text-white" : "text-ink"}`}>
