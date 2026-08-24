@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
 import Script from "next/script";
 import { Inter, Noto_Sans_Devanagari } from "next/font/google";
 import { EmergencyStrip } from "@/components/EmergencyStrip";
@@ -6,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Disclaimer } from "@/components/Disclaimer";
 import { Footer } from "@/components/Footer";
 import { site } from "@/content/site";
+import { LANG_STORAGE_KEY, parseSiteLang } from "@/lib/language";
 import "./globals.css";
 
 const inter = Inter({
@@ -59,22 +61,39 @@ const organizationJsonLd = {
   email: site.email.care,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const lang = parseSiteLang((await cookies()).get(LANG_STORAGE_KEY)?.value);
+
   return (
-    <html lang="hi" className={`${inter.variable} ${devanagari.variable}`}>
+    <html
+      lang={lang}
+      data-lang={lang === "en" ? "en" : undefined}
+      className={`${inter.variable} ${devanagari.variable}`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         {/*
-          Runs before hydration (next/script beforeInteractive) so a
-          returning visitor who chose English never sees a flash of Hindi
-          on load. Mirrors the LanguageToggle component's own logic.
+          Cookie is the source of truth (read above) so SSR html lang matches
+          hydration. This script only covers a returning visitor who still has
+          localStorage but no cookie yet — and writes the cookie for next time.
+          suppressHydrationWarning on <html> is required for that one request.
         */}
         <Script id="lang-init" strategy="beforeInteractive">
           {`try {
-            if (localStorage.getItem("agasta-lang") === "en") {
+            var k = "${LANG_STORAGE_KEY}";
+            var lang = localStorage.getItem(k);
+            if (lang === "en" || lang === "hi") {
+              document.cookie = k + "=" + lang + "; path=/; max-age=31536000; SameSite=Lax";
+            }
+            if (lang === "en") {
               document.documentElement.dataset.lang = "en";
               document.documentElement.lang = "en";
             }

@@ -81,6 +81,10 @@ export function Footer() {
             {cin ? ` · CIN ${cin}` : ""}
             {gst ? ` · GST ${gst}` : ""}
           </p>
+          <p className="i18n-swap">
+            <span lang="hi">डिज़ाइन: SSR Infotech</span>
+            <span lang="en">Designed by SSR Infotech</span>
+          </p>
           <p>
             <span lang="hi">आपात स्थिति में {site.emergencyNumber}</span>
             <span lang="en">Emergency {site.emergencyNumber}</span>

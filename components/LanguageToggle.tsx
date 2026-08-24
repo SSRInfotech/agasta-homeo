@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { LANG_STORAGE_KEY, type SiteLang } from "@/lib/language";
 
-const STORAGE_KEY = "agasta-lang";
-
-function apply(lang: "hi" | "en") {
+function apply(lang: SiteLang) {
   const root = document.documentElement;
   if (lang === "en") {
     root.dataset.lang = "en";
@@ -14,7 +13,8 @@ function apply(lang: "hi" | "en") {
     root.lang = "hi";
   }
   try {
-    localStorage.setItem(STORAGE_KEY, lang);
+    localStorage.setItem(LANG_STORAGE_KEY, lang);
+    document.cookie = `${LANG_STORAGE_KEY}=${lang}; path=/; max-age=31536000; SameSite=Lax`;
   } catch {
     // Private browsing / storage disabled — the toggle still works for this
     // page view via the DOM attribute, it just won't persist. Fine either way.
@@ -33,13 +33,13 @@ function apply(lang: "hi" | "en") {
  * match on first paint and there is no hydration warning.
  */
 export function LanguageToggle() {
-  const [active, setActive] = useState<"hi" | "en">("hi");
+  const [active, setActive] = useState<SiteLang>("hi");
 
   useEffect(() => {
     setActive(document.documentElement.dataset.lang === "en" ? "en" : "hi");
   }, []);
 
-  function select(lang: "hi" | "en") {
+  function select(lang: SiteLang) {
     apply(lang);
     setActive(lang);
   }
