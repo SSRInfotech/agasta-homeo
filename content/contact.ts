@@ -3,14 +3,17 @@ import type { Bi } from "./site";
 export const intro = {
   title: { hi: "संपर्क", en: "Contact" } satisfies Bi,
   lede: {
-    hi: "हमारा पहला अस्पताल तैयार हो रहा है। तब तक व्हाट्सएप या फ़ोन पर बात कीजिए — या नीचे नाम लिख दीजिए, अस्पताल खुलने पर हम कॉल करेंगे।",
-    en: "Our first hospital is being set up. Until then, reach us on WhatsApp or phone — or leave your name below and we will call you when one opens near you.",
+    hi: "हमारा पहला अस्पताल पटना में खुल चुका है। व्हाट्सएप या फ़ोन पर बात कीजिए — या, अगर आप पटना से बाहर हैं, नीचे नाम लिख दीजिए, आपके ज़िले में अस्पताल खुलने पर हम कॉल करेंगे।",
+    en: "Our first hospital is open in Patna. Reach us on WhatsApp or phone — or, if you are outside Patna, leave your name below and we will call you when one opens in your district.",
   } satisfies Bi,
 };
 
-export const noHospitalYet: Bi = {
-  hi: "अभी कोई अस्पताल पता प्रकाशित नहीं है, क्योंकि अभी कोई खुला नहीं है। हम यहाँ काल्पनिक पता नहीं लिखेंगे।",
-  en: "No hospital address is published yet, because none is open yet. We will not print an address that does not exist.",
+/** `site.hospitals` holds the real entry (Patna, open 2026-09-13). Street
+ *  address and hours are still TODO_ there — this line is the honest
+ *  placeholder shown until those land, not a guessed address. */
+export const hospitalStatus: Bi = {
+  hi: "पटना अस्पताल का पूरा पता और समय जल्द जोड़ा जाएगा। तब तक रास्ता जानने के लिए व्हाट्सएप या फ़ोन पर पूछिए। पटना से बाहर अभी कोई अस्पताल चालू नहीं है।",
+  en: "The Patna hospital's full address and hours will be added shortly. Until then, ask us on WhatsApp or phone for directions. Outside Patna, none of ours is open yet.",
 };
 
 /** §9.4 — WhatsApp first-reply templates. The desk never prescribes. */

@@ -3,7 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WhatsAppCta } from "@/components/WhatsAppCta";
 import { LeadForm } from "@/components/LeadForm";
-import { deskRule, intro, noHospitalYet, privacyPromise, whatsappTemplates } from "@/content/contact";
+import { deskRule, hospitalStatus, intro, privacyPromise, whatsappTemplates } from "@/content/contact";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -33,8 +33,18 @@ export default function ContactPage() {
               <span lang="hi">अस्पताल</span>
               <span lang="en">Hospital</span>
             </h2>
-            <p lang="hi" className="mt-3 text-sm text-ink-soft">{noHospitalYet.hi}</p>
-            <p lang="en" className="mt-2 text-sm text-ink-muted">{noHospitalYet.en}</p>
+            {site.hospitals.map((hospital) => (
+              <div key={hospital.name.en} className="mt-3">
+                <p lang="hi" className="font-medium text-ink">{hospital.name.hi}</p>
+                <p lang="en" className="text-sm text-ink-muted">{hospital.name.en}</p>
+                <p lang="hi" className="mt-2 text-sm text-ink-soft">{hospital.address.hi}</p>
+                <p lang="en" className="text-xs text-ink-muted">{hospital.address.en}</p>
+                <p lang="hi" className="mt-1 text-sm text-ink-soft">{hospital.hours.hi}</p>
+                <p lang="en" className="text-xs text-ink-muted">{hospital.hours.en}</p>
+              </div>
+            ))}
+            <p lang="hi" className="mt-4 text-xs text-ink-muted">{hospitalStatus.hi}</p>
+            <p lang="en" className="mt-1 text-xs text-ink-muted">{hospitalStatus.en}</p>
           </article>
 
           <article className="card-hover rounded-xl border border-brand-line bg-surface p-6">
@@ -82,9 +92,9 @@ export default function ContactPage() {
 
       <Section narrow>
         <SectionHeading
-          eyebrow="Request a callback"
-          hi="अस्पताल खुलने पर नाम लिख दीजिए, हम कॉल करेंगे"
-          en="Leave your details and we will call you when a hospital opens"
+          eyebrow="Outside Patna? Request a callback"
+          hi="पटना से बाहर हैं? नाम लिख दीजिए, हम कॉल करेंगे"
+          en="Outside Patna? Leave your details and we will call you"
         />
         <LeadForm source="contact-page" />
       </Section>

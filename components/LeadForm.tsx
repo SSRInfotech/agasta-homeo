@@ -10,9 +10,17 @@ const labelEn = "block text-xs font-normal text-ink-muted";
 const field =
   "mt-2 w-full rounded-lg border border-line bg-surface px-4 py-3 text-base text-ink outline-none transition-colors focus:border-brand-mid";
 
+/** Loose match on the city field — enough to route the thank-you message,
+ *  not a validation rule. A false negative just shows the generic message. */
+function isPatna(city: FormDataEntryValue | null): boolean {
+  const value = String(city ?? "").toLowerCase();
+  return value.includes("patna") || value.includes("पटना");
+}
+
 export function LeadForm({ source }: { source: string }) {
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
+  const [patna, setPatna] = useState(false);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,6 +29,7 @@ export function LeadForm({ source }: { source: string }) {
 
     setState("submitting");
     setMessage("");
+    setPatna(isPatna(data.get("city")));
 
     try {
       const response = await fetch("/api/lead", {
@@ -60,13 +69,28 @@ export function LeadForm({ source }: { source: string }) {
         <p lang="hi" className="text-lg font-semibold text-brand-dark">
           धन्यवाद। आपका नाम दर्ज हो गया है।
         </p>
-        <p lang="hi" className="mt-2 text-ink-soft">
-          हमारे ज़िले में अस्पताल खुलने पर हम इसी नंबर पर कॉल करेंगे। यह चिकित्सा परामर्श नहीं था।
-        </p>
-        <p lang="en" className="mt-3 text-sm text-ink-muted">
-          Thank you — we have your details. We will call this number when a hospital opens near you.
-          This was not a medical consultation.
-        </p>
+        {patna ? (
+          <>
+            <p lang="hi" className="mt-2 text-ink-soft">
+              हमारा पटना अस्पताल पहले से खुला है — आप सीधे व्हाट्सएप या फ़ोन पर संपर्क कर सकते हैं। यह
+              चिकित्सा परामर्श नहीं था।
+            </p>
+            <p lang="en" className="mt-3 text-sm text-ink-muted">
+              Our Patna hospital is already open — you can reach us directly on WhatsApp or phone.
+              This was not a medical consultation.
+            </p>
+          </>
+        ) : (
+          <>
+            <p lang="hi" className="mt-2 text-ink-soft">
+              हमारे ज़िले में अस्पताल खुलने पर हम इसी नंबर पर कॉल करेंगे। यह चिकित्सा परामर्श नहीं था।
+            </p>
+            <p lang="en" className="mt-3 text-sm text-ink-muted">
+              We will call this number when a hospital opens near you. This was not a medical
+              consultation.
+            </p>
+          </>
+        )}
       </div>
     );
   }

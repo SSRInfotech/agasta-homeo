@@ -4,8 +4,8 @@ Public website for **Agasta Homeo**, a unit of **Kangson Wellness Pvt Ltd** — 
 
 Six static, Hindi-first pages plus one API route that writes patient callback requests to Google Sheets.
 
-- **Brand, copy and claim rules:** `app-doc/kanha/agasta/AGASTA_FOUNDATION_DOC.md`
-- **Architecture and phasing:** `app-doc/kanha/agasta/AGASTA_HOMEO_TECH_BLUEPRINT.md`
+- **Brand, copy and claim rules:** `app-doc/agasta-homeo/01-business/AGASTA_FOUNDATION_DOC.md`
+- **Architecture and phasing:** `app-doc/agasta-homeo/03-technology/AGASTA_HOMEO_TECH_BLUEPRINT.md`
 
 ## Stack
 
@@ -62,7 +62,7 @@ Every published statistic carries its source and year in the same object — the
 5. Put the `/exec` URL in `GOOGLE_SHEETS_WEBHOOK_URL` and the same secret in `GOOGLE_SHEETS_SECRET`
 6. Share the sheet with **named accounts only**
 
-The doctor application form is a separate Google Form (~20 fields across 6 pages) built by `app-doc/kanha/google-forms/create-agasta-homeo-doctor-form.gs`. Link its live URL via `NEXT_PUBLIC_DOCTOR_FORM_URL`.
+The doctor application form is a separate Google Form (~20 fields across 6 pages) built by `app-doc/agasta-homeo/02-people-and-hiring/create-agasta-homeo-doctor-form.gs`. Link its live URL via `NEXT_PUBLIC_DOCTOR_FORM_URL`.
 
 ## Before you deploy
 

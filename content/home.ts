@@ -18,14 +18,18 @@ export const hero = {
     en: "Homoeopathy that Bihar can find, afford, and trust — delivered by doctors who are treated as professionals.",
   } satisfies Bi,
   ctaPrimary: { hi: "चिकित्सक के रूप में आवेदन करें", en: "Apply as a doctor" } satisfies Bi,
-  ctaSecondary: { hi: "अस्पताल खुलने पर सूचित करें", en: "Tell me when a hospital opens" } satisfies Bi,
+  /** Patna is open — the secondary CTA sends a Patna visitor to /contact, not to the waitlist. */
+  ctaSecondary: { hi: "पटना अस्पताल से संपर्क करें", en: "Contact our Patna hospital" } satisfies Bi,
+  /** Shown next to the brand badge once a hospital is actually open — see `site.hospitals`. */
+  patnaBadge: { hi: "अब पटना में खुला", en: "Now open in Patna" } satisfies Bi,
   /**
-   * Nothing is open yet and the site must never imply otherwise — the same
-   * rule that keeps `site.hospitals` an empty array.
+   * For every district that is not Patna. The same honesty rule that used
+   * to cover the whole company still applies to the rest of Bihar — see
+   * `site.hospitals` for what actually changed on 2026-09-13.
    */
   waitlistNote: {
-    hi: "अभी हमारा कोई अस्पताल चालू नहीं है। पहला अस्पताल आपके ज़िले में खुलने पर हम आपको कॉल करेंगे। यह फ़ॉर्म चिकित्सा परामर्श नहीं है।",
-    en: "No hospital of ours is open yet. We will call you when the first one opens in your district. This form is not a medical consultation.",
+    hi: "हमारा पहला अस्पताल पटना में खुल चुका है। पटना के बाहर अभी कोई अस्पताल चालू नहीं है — आपके ज़िले में खुलने पर हम आपको कॉल करेंगे। यह फ़ॉर्म चिकित्सा परामर्श नहीं है।",
+    en: "Our first hospital is open in Patna. Outside Patna, none of ours is open yet — we will call you when one opens in your district. This form is not a medical consultation.",
   } satisfies Bi,
 };
 
@@ -294,6 +298,41 @@ export const legalRecognition = {
       body: { hi: "WHO पारंपरिक चिकित्सा रणनीति 2025–2034 (WHA78(14), 27 मई 2025) में सूचीबद्ध — यह पारंपरिक चिकित्सा को एक नीति-क्षेत्र के रूप में मान्यता है, हर औषधि के असर का प्रमाण नहीं।", en: "Listed in the WHO Traditional Medicine Strategy 2025–2034 (WHA78(14), 27 May 2025) — recognition of traditional medicine as a policy field, not proof that every remedy works." },
     },
   ] as Array<{ key: string; title: Bi; body: Bi }>,
+};
+
+/**
+ * Free consultation + awareness camps — the "Awareness" pillar (§1.3, pillar
+ * 1) made concrete. Written in the same building/opening tense as `hero`
+ * and `building` — a chain of clinics is being organised, not open yet, so
+ * this must never read as "book your free camp today". See
+ * hero.waitlistNote for why the same honesty rule applies here.
+ */
+export const campsInitiative = {
+  title: { hi: "मुफ़्त परामर्श शिविर और जागरूकता अभियान", en: "Free consultation camps and awareness drives" } satisfies Bi,
+  lede: {
+    hi: "क्लिनिकों की एक शृंखला खोलने के साथ-साथ, हम मुफ़्त परामर्श शिविर और जागरूकता अभियान भी आयोजित कर रहे हैं — ताकि इलाज से पहले ही हर ज़िले को पता हो कि होम्योपैथी क्या है, किसके लिए है, और कब सीधे अस्पताल जाना है।",
+    en: "Alongside opening a chain of clinics, we are organising free consultation camps and awareness drives — so every district knows what homoeopathy is, who it is for, and when to go straight to a hospital, before treatment ever comes into it.",
+  } satisfies Bi,
+  points: [
+    {
+      hi: "मुफ़्त परामर्श शिविर — पंजीकृत चिकित्सक, कोई फ़ीस नहीं",
+      en: "Free consultation camps — a registered doctor, no fee",
+    },
+    {
+      hi: "स्कूल और मोहल्ला जागरूकता सत्र — कब घर पर संभालें, कब अस्पताल जाएँ",
+      en: "School and neighbourhood awareness sessions — what to handle at home, when to go to hospital",
+    },
+    {
+      hi: "विश्व होम्योपैथी दिवस (10 अप्रैल) पर ज़िला-स्तर के आयोजन",
+      en: "District-level events around World Homoeopathy Day (10 April)",
+    },
+  ] as Bi[],
+  /** Same rule as hero.waitlistNote — nothing is scheduled yet on the public site. */
+  note: {
+    hi: "पहला शिविर जिस दिन तय होगा, उसकी तारीख़ और जगह यहीं और व्हाट्सएप पर बताई जाएगी। अभी नाम लिखा दीजिए — शिविर आपके पास आने पर हम सबसे पहले आपको बताएँगे।",
+    en: "The date and place of the first camp will be announced here and on WhatsApp as soon as it is fixed. Leave your name now — we will tell you first when a camp comes near you.",
+  } satisfies Bi,
+  cta: { hi: "शिविर की सूचना पाएँ", en: "Get notified about a camp" } satisfies Bi,
 };
 
 export const careersTeaser = {

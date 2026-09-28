@@ -8,9 +8,11 @@ import { Bilingual } from "@/components/Bilingual";
 import { LeadForm } from "@/components/LeadForm";
 import { ConsultationScene } from "@/components/illustrations/ConsultationScene";
 import {
+  IconArrowRight,
   IconBed,
   IconBookOpen,
   IconCalendarClock,
+  IconClipboardHeart,
   IconDroplet,
   IconEar,
   IconFileText,
@@ -20,11 +22,14 @@ import {
   IconHandHeart,
   IconHospital,
   IconLandmark,
+  IconLeaf,
   IconMapPin,
   IconScale,
   IconShieldCheck,
   IconStethoscope,
+  IconTrendingUp,
   IconUsers,
+  IconWrench,
 } from "@/components/icons";
 import { site } from "@/content/site";
 import {
@@ -32,6 +37,7 @@ import {
   biharMeasure,
   biharStats,
   building,
+  campsInitiative,
   careersTeaser,
   doctorsMinute,
   firstVisitPromise,
@@ -70,6 +76,20 @@ const minuteIcons: Record<string, React.ReactNode> = {
 
 const indiaStatIcons = [<IconUsers key="0" />, <IconHospital key="1" />, <IconMapPin key="2" />];
 
+/** One icon per `visitReasons` entry, same order — the awareness grid,
+ *  styled after a circular disease-index look, never a diagnosis label. */
+const visitReasonIcons = [
+  <IconDroplet key="0" />,
+  <IconFlask key="1" />,
+  <IconFingerprint key="2" />,
+  <IconLeaf key="3" />,
+  <IconWrench key="4" />,
+  <IconHandHeart key="5" />,
+  <IconCalendarClock key="6" />,
+  <IconClipboardHeart key="7" />,
+  <IconTrendingUp key="8" />,
+];
+
 const legalIcons: Record<string, React.ReactNode> = {
   ministry: <IconLandmark />,
   council: <IconScale />,
@@ -90,6 +110,11 @@ export default function HomePage() {
                   <span lang="hi">अगस्ता होमियो</span>
                   <span aria-hidden>·</span>
                   <span lang="en">Agasta Homeo</span>
+                </span>
+                <span className="i18n-swap ml-2 inline-flex items-center gap-1.5 rounded-full bg-brand-dark px-3 py-1.5 text-xs font-semibold text-white">
+                  <span aria-hidden>●</span>
+                  <span lang="hi">{hero.patnaBadge.hi}</span>
+                  <span lang="en">{hero.patnaBadge.en}</span>
                 </span>
                 <p lang="hi" className="mt-3 text-sm font-semibold text-brand-mid">
                   {hero.eyebrow.hi}
@@ -120,7 +145,7 @@ export default function HomePage() {
                   <span lang="hi">{hero.ctaPrimary.hi}</span>
                   <span lang="en">{hero.ctaPrimary.en}</span>
                 </Button>
-                <Button href="#callback" variant="secondary" className="i18n-swap">
+                <Button href="/contact" variant="secondary" className="i18n-swap">
                   <span lang="hi">{hero.ctaSecondary.hi}</span>
                   <span lang="en">{hero.ctaSecondary.en}</span>
                 </Button>
@@ -213,6 +238,54 @@ export default function HomePage() {
           <p lang="en" className="mt-2 text-sm text-alert/80">
             {building.limit.en}
           </p>
+        </div>
+      </Section>
+
+      {/* 3.5 — Free consultation camps + awareness drives (§1.3 pillar 1). */}
+      <Section tone="soft">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <SectionHeading
+              eyebrow="Awareness"
+              hi={campsInitiative.title.hi}
+              en={campsInitiative.title.en}
+            />
+            <p lang="hi" className="max-w-xl text-lg text-ink-soft">
+              {campsInitiative.lede.hi}
+            </p>
+            <p lang="en" className="mt-3 max-w-xl text-ink-muted">
+              {campsInitiative.lede.en}
+            </p>
+            <ul className="stagger mt-6 space-y-3">
+              {campsInitiative.points.map((point) => (
+                <li key={point.en} className="flex gap-3 rounded-lg border border-brand-line bg-surface p-4">
+                  <span className="icon-badge sm shrink-0" aria-hidden>
+                    <IconCalendarClock />
+                  </span>
+                  <span>
+                    <span lang="hi" className="block text-ink">
+                      {point.hi}
+                    </span>
+                    <span lang="en" className="mt-1 block text-xs text-ink-muted">
+                      {point.en}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="self-start rounded-xl border border-brand-line bg-surface p-6">
+            <p lang="hi" className="text-ink">
+              {campsInitiative.note.hi}
+            </p>
+            <p lang="en" className="mt-3 text-sm text-ink-muted">
+              {campsInitiative.note.en}
+            </p>
+            <Button href="#callback" className="i18n-swap mt-6">
+              <span lang="hi">{campsInitiative.cta.hi}</span>
+              <span lang="en">{campsInitiative.cta.en}</span>
+            </Button>
+          </div>
         </div>
       </Section>
 
@@ -361,27 +434,49 @@ export default function HomePage() {
           hi="लोग आमतौर पर इन शिकायतों के साथ आते हैं"
           en="What people usually come to us with"
         />
-        <ul className="stagger flex flex-wrap gap-2.5">
-          {visitReasons.map((reason) => (
-            <li
-              key={reason.en}
-              className="rounded-full border border-brand-line bg-surface px-4 py-2.5 text-sm"
-            >
-              <span lang="hi" className="text-brand-dark">
+        <ul className="stagger flex flex-wrap justify-center gap-x-6 gap-y-8 sm:justify-start">
+          {visitReasons.map((reason, i) => (
+            <li key={reason.en} className="flex w-28 flex-col items-center gap-3 text-center">
+              <span
+                className="grid h-24 w-24 shrink-0 place-items-center rounded-full border-2 border-brand-line bg-brand-soft text-brand transition-transform duration-200 [&_svg]:h-10 [&_svg]:w-10"
+                aria-hidden
+              >
+                {visitReasonIcons[i]}
+              </span>
+              <span lang="hi" className="text-sm leading-snug font-semibold text-ink">
                 {reason.hi}
               </span>
-              <span lang="en" className="ml-2 text-ink-muted">
-                · {reason.en}
+              <span lang="en" className="text-xs leading-snug text-ink-muted">
+                {reason.en}
               </span>
             </li>
           ))}
+          <li className="flex w-28 flex-col items-center gap-3 text-center">
+            <Link
+              href="/assessment"
+              className="grid h-24 w-24 shrink-0 place-items-center rounded-full bg-accent text-white transition-transform duration-200 hover:-translate-y-1 [&_svg]:h-9 [&_svg]:w-9"
+            >
+              <IconArrowRight />
+            </Link>
+            <Link href="/assessment" className="i18n-swap text-sm font-semibold text-accent underline underline-offset-4">
+              <span lang="hi">और देखें</span>
+              <span lang="en">See more</span>
+            </Link>
+          </li>
         </ul>
         <Bilingual
           {...visitReasonsNote}
           className="mt-6 max-w-3xl text-sm"
           hiClassName="text-ink-soft"
         />
-        <p className="mt-6">
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <Link
+            href="/assessment"
+            className="i18n-swap font-semibold text-brand underline underline-offset-4"
+          >
+            <span lang="hi">अपनी शिकायत के लिए ३ सवाल — अभी समझें →</span>
+            <span lang="en">3 questions for your complaint — understand it now →</span>
+          </Link>
           <Link
             href="/homoeopathy#dual-care"
             className="i18n-swap font-semibold text-brand underline underline-offset-4"
@@ -389,7 +484,7 @@ export default function HomePage() {
             <span lang="hi">और यह भी देखें: कब सीधे अस्पताल जाना है →</span>
             <span lang="en">Also see: when to go straight to a hospital →</span>
           </Link>
-        </p>
+        </div>
       </Section>
 
       {/* 8 — A doctor's minute */}
@@ -459,12 +554,12 @@ export default function HomePage() {
         </p>
       </Section>
 
-      {/* 10 — Patient waitlist */}
+      {/* 10 — Patient waitlist, for everywhere outside Patna */}
       <Section id="callback" narrow>
         <SectionHeading
-          eyebrow="Request a callback"
-          hi="अस्पताल खुलने पर हमें आपको कॉल करने दीजिए"
-          en="Let us call you when a hospital opens near you"
+          eyebrow="Outside Patna? Request a callback"
+          hi="पटना में हैं? सीधे संपर्क करें। बाहर हैं? हमें कॉल करने दीजिए"
+          en="In Patna? Contact us directly. Elsewhere? Let us call you"
         />
         <div className="mb-8 rounded-xl border border-brand-line bg-brand-soft p-5">
           <p lang="hi" className="text-ink">

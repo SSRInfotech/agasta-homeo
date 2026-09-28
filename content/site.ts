@@ -57,11 +57,27 @@ export const site = {
     process.env.NEXT_PUBLIC_DOCTOR_FORM_URL ?? "TODO_DOCTOR_FORM_URL",
 
   /**
-   * Hospitals we actually operate. Stays empty until one is open and licensed.
-   * A medical company that lists a facility it has not built is the exact
-   * failure mode this site is designed to avoid.
+   * Hospitals we actually operate. An entry only goes here once it is open
+   * and licensed — a medical company that lists a facility it has not built
+   * is the exact failure mode this site is designed to avoid.
+   *
+   * Patna confirmed open 2026-09-13. The exact street address and hours are
+   * not yet published — `address`/`hours` say so honestly rather than
+   * printing a guessed street name or timing. Replace both once known.
+   * TODO_PATNA_ADDRESS, TODO_PATNA_HOURS, TODO_PATNA_MAP_URL — launch
+   * blockers for the /contact map + directions link.
    */
-  hospitals: [] as Array<{ name: Bi; address: Bi; hours: Bi; mapUrl: string }>,
+  hospitals: [
+    {
+      name: { hi: "अगस्ता होमियो, पटना", en: "Agasta Homeo, Patna" },
+      address: {
+        hi: "पटना, बिहार — पूरा पता जल्द जोड़ा जाएगा",
+        en: "Patna, Bihar — full address coming shortly",
+      },
+      hours: { hi: "समय जल्द जोड़ा जाएगा", en: "Hours coming shortly" },
+      mapUrl: "",
+    },
+  ] as Array<{ name: Bi; address: Bi; hours: Bi; mapUrl: string }>,
 
   /** Printed in the footer once issued. */
   registration: {
@@ -85,6 +101,7 @@ export const leadInterests: Array<{ value: string } & Bi> = [
   { value: "women", hi: "महिला स्वास्थ्य", en: "Women's health" },
   { value: "skin", hi: "त्वचा", en: "Skin" },
   { value: "long_term", hi: "पुरानी शिकायत", en: "Long-running complaint" },
+  { value: "free_camp", hi: "मुफ़्त शिविर की सूचना", en: "Notify me about a free camp" },
   { value: "not_sure", hi: "अभी तय नहीं", en: "Not sure yet" },
 ];
 
@@ -92,6 +109,7 @@ export const nav: Array<{ href: string } & Bi> = [
   // Doctor recruitment is the site's primary job — it leads the nav.
   { href: "/doctors", hi: "चिकित्सकों के लिए", en: "For doctors" },
   { href: "/homoeopathy", hi: "होम्योपैथी क्या है", en: "Homoeopathy" },
+  { href: "/assessment", hi: "अपनी स्थिति समझें", en: "Understand your condition" },
   { href: "/bihar", hi: "बिहार", en: "Bihar" },
   { href: "/about", hi: "हमारे बारे में", en: "About" },
   { href: "/contact", hi: "संपर्क", en: "Contact" },
